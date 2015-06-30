@@ -79,6 +79,7 @@ app.get('/cmd/uw', function(req,res) {
 		var mytemp = {}
 		mytemp['name'] = key;
 		mytemp['value'] = arrayKVObjects[key].value;
+		arrayKVObjects[key].accessed = new Date();
 		//mytemp['color'] = 'yellow';
 		data.push(mytemp);
 	}
