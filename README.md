@@ -8,6 +8,37 @@ SIGUSR2 signal handler is written to produce some statistics on console.log()
 
 ## Usage:
 
+Run with nodejs
+```
+$ nodejs qddb.js
+[2015-06-30 15:04:32.561] [LOG] PID: 5034
+[2015-06-30 15:04:32.567] [LOG] Application name: qddb.js
+[2015-06-30 15:04:32.787] [LOG] Listening at http://127.0.0.1:8002
+[2015-06-30 15:04:35.886] [LOG] { key: 'key1', value: 'value1' }
+[2015-06-30 15:04:35.888] [LOG] doesnt exist, creating new object, key=key1
+[2015-06-30 15:04:35.903] [LOG] { key: 'key2', value: '2' }
+[2015-06-30 15:04:35.904] [LOG] doesnt exist, creating new object, key=key2
+[2015-06-30 15:04:35.912] [LOG] { key: '3', value: '3' }
+[2015-06-30 15:04:35.912] [LOG] doesnt exist, creating new object, key=3
+[2015-06-30 15:04:35.919] [LOG] { key: 'temperature', value: '23.45' }
+[2015-06-30 15:04:35.919] [LOG] doesnt exist, creating new object, key=temperature
+[2015-06-30 15:04:35.926] [LOG] { key: 'humidity', value: '56.78' }
+[2015-06-30 15:04:35.926] [LOG] doesnt exist, creating new object, key=humidity
+```
+
+interrupt with CTRL+C
+```
+^C[2015-06-30 15:47:58.136] [LOG] We-should-cleanup signal catched.. shutting down
+[2015-06-30 15:47:58.136] [LOG] closing application socket
+[2015-06-30 15:47:58.136] [INFO] API requests: 6
+[2015-06-30 15:47:58.137] [INFO] GET requests: 0
+[2015-06-30 15:47:58.137] [INFO] PUT/POST requests: 5
+[2015-06-30 15:47:58.138] [INFO] DELETE requests: 0
+[2015-06-30 15:47:58.138] [INFO] objects in memory: 5
+[2015-06-30 15:47:58.139] [INFO] objects memory usage: 458
+[2015-06-30 15:47:58.139] [LOG] process ends here
+```
+
 Store value1 under key1
 ```
 curl -L http://127.0.0.1:8002/key1/value1 -XPUT
