@@ -15,8 +15,8 @@ var app = express();
 // counters
 var apiRequests=0;
 var counterGet=0;
-var counterPut=0;
-var counterPost=0;
+var counterPutPost=0;
+//var counterPost=0;
 var counterDelete=0;
 
 
@@ -36,7 +36,7 @@ var arrayKVObjects = [];
 // store object procedure
 storeKeyValue = function(req,res) {
 	apiRequests++;
-	counterPut++;
+	counterPutPost++;
 	console.log(req.params);
 	var key = req.params.key;
 	var value = req.params.value;
@@ -57,6 +57,7 @@ storeKeyValue = function(req,res) {
 
 // get all objects
 app.get('/cmd/list', function(req, res) {
+	apiRequests++;
 	var keys = [];
 	for (var key in arrayKVObjects) {
 		keys.push(arrayKVObjects[key]);
@@ -102,8 +103,7 @@ app.post('/:key/:value', storeKeyValue);
 var printStatistics = function() {
 	console.info('API requests: ' + apiRequests);
 	console.info('GET requests: ' + counterGet);
-	console.info('PUT requests: ' + counterPut);
-	console.info('POST requests: ' + counterPost);
+	console.info('PUT/POST requests: ' + counterPutPost);
 	console.info('DELETE requests: ' + counterDelete);
 	console.info('objects in memory: ' + Object.keys(arrayKVObjects).length);
 	console.info('objects memory usage: ' + sizeof(arrayKVObjects));
@@ -126,14 +126,26 @@ var signalHandler = function() {
 	process.exit();
 }
 
+
 var server = app.listen(port, host, function() {
 	console.log('Listening at http://%s:%s', host, port)
 });
 
-//catch some signals
+
+
+// catch some signals
 //process.on('exit', signalHandler);
 process.on('SIGINT', signalHandler);
 process.on('SIGHUP', signalHandler);
 process.on('SIGTERM', signalHandler);
-//process.on('SIGUSR2', printStatistics);
-process.on('SIGUSR2', signalHandler);
+process.on('SIGUSR2', printStatistics);
+// uncomment this if you use nodemon
+//process.on('SIGUSR2', signalHandler);
+
+process.on('uncaughtException', function(err) {
+	if (err.code == 'EADDRINUSE') {
+		console.error('unable to listen on %s:%s , %s', host, port, err);
+	} else {
+		console.error(err);	
+	}
+})
