@@ -144,4 +144,6 @@ Result is shown below
 
 ![QDDB.js and Univeral Widget in action](https://raw.githubusercontent.com/mrizvic/js-qddb/master/universalwidget.png)
 
+![QDDB.js and Univeral Widget in action](https://raw.githubusercontent.com/mrizvic/js-qddb/master/universalwidget2.png)
+
 
