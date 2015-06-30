@@ -3,7 +3,7 @@
 I needed simple and RESTful key/value storage so I ended up writing this.
 Each stored key has a property of created, modified and accessed timestamp in ISO 8601 format.
 
-SIGUSR2 signal handler is written to produce some statistics on console.log()
+SIGUSR2 signal handler is written to produce some statistics on console.info()
 
 
 ## Usage:
