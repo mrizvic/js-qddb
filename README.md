@@ -105,6 +105,6 @@ $ curl -L http://127.0.0.1:8002/cmd/uw | jq .
 
 Result is shown below
 
-![QDDB.js and Univeral Widget in action](https://raw.github.com/mrizvic/js-qddb/universalwidget.png)
+![QDDB.js and Univeral Widget in action](https://raw.githubusercontent.com/mrizvic/js-qddb/master/universalwidget.png)
 
 
