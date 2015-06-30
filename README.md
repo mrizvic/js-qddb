@@ -95,6 +95,12 @@ server$ curl -L http://127.0.0.1:8002/key1
 {"error":"undefined"}~
 ```
 
+Always stay up to date with your Raspberry PI CPU temperature (and make sure you check out the widget software below)
+```
+pi@raspberrypi ~ $ curl http://qddb.dmz6.net/RPI2-CPUTEMP/$(vcgencmd measure_temp | cut -d '=' -f2 | cut -d "'" -f1) -XPUT
+OKpi@raspberrypi ~ $
+```
+
 ## Android Universal Widget
 
 In order to display key/values on your favourite android gadget you can install [Universal Widget](https://play.google.com/store/apps/details?id=uk.cdev.universalwidget.v1) and use following URL to catch your stored values.
