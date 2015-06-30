@@ -4,7 +4,6 @@ var port = 8002;
 var myAppName="qddb.js";	//quick and dirty database
 
 require("console-stamp")(console, "yyyy-mm-dd HH:MM:ss.l");
-require('querystring').unescape;
 
 console.log('PID: ' + process.pid)
 console.log('Application name: ' + myAppName)
