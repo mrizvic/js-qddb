@@ -1,0 +1,30 @@
+{
+  "name": "qddbjs",
+  "version": "0.1.0",
+  "description": "Simple RESTful in memory key/value database",
+  "main": "qddb.js",
+  "dependencies": {
+    "console-stamp": "~0.1.6",
+    "express": "~4.13.0",
+    "object-sizeof": "~1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mrizvic/js-qddb.git"
+  },
+  "keywords": [
+    "restful",
+    "key",
+    "value",
+    "database"
+  ],
+  "author": "Marko Rizvic",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/mrizvic/js-qddb/issues"
+  }
+}
