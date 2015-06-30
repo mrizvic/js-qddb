@@ -1,6 +1,6 @@
 # QDDB - quick and dirty database
 
-I needed simple and RESTful key/value so I ended up writing this.
+I needed simple and RESTful key/value storage so I ended up writing this.
 Each stored key has a property of created, modified and accessed timestamp in ISO 8601 format.
 
 SIGUSR2 signal handler is written to produce some statistics on console.log()
