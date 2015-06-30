@@ -65,6 +65,27 @@ app.get('/cmd/list', function(req, res) {
 	res.send(keys);
 });
 
+
+// report for android Universal Widget
+// https://play.google.com/store/apps/details?id=uk.cdev.universalwidget.v1&hl=en
+app.get('/cmd/uw', function(req,res) {
+	var myresp = {};
+	myresp['title'] = 'my internet of things';
+	myresp['type'] = 'list';
+	myresp['date'] = new Date().toString();
+
+	var data = [];
+	for (var key in arrayKVObjects) {
+		var mytemp = {}
+		mytemp['name'] = key;
+		mytemp['value'] = arrayKVObjects[key].value;
+		//mytemp['color'] = 'yellow';
+		data.push(mytemp);
+	}
+	myresp['data'] = data;
+	res.send(myresp);
+});
+
 // get value for specific key
 app.get('/:key', function(req,res) {
 	apiRequests++;
@@ -97,6 +118,7 @@ app.delete('/:key', function(req,res) {
 // methods to store key/value object
 app.put('/:key/:value', storeKeyValue);
 app.post('/:key/:value', storeKeyValue);
+
 
 
 // get some stats

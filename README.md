@@ -5,6 +5,7 @@ Each stored key has a property of created, modified and accessed timestamp in IS
 
 SIGUSR2 signal handler is written to produce some statistics on console.log()
 
+
 ## Usage:
 
 Store value1 under key1
@@ -62,4 +63,48 @@ server$ curl -L http://127.0.0.1:8002/cmd/list
 server$ curl -L http://127.0.0.1:8002/key1
 {"error":"undefined"}~
 ```
+
+## Android Universal Widget
+
+In order to display key/values on your favourite android gadget you can install [Universal Widget](https://play.google.com/store/apps/details?id=uk.cdev.universalwidget.v1) and use following URL to catch your stored values.
+
+```
+$ curl -L http://127.0.0.1:8002/cmd/uw | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   267  100   267    0     0  39218      0 --:--:-- --:--:-- --:--:-- 44500
+{
+  "data": [
+    {
+      "value": "3",
+      "name": "3"
+    },
+    {
+      "value": "value1",
+      "name": "key1"
+    },
+    {
+      "value": "2",
+      "name": "key2"
+    },
+    {
+      "value": "23.45",
+      "name": "temperature"
+    },
+    {
+      "value": "56.78",
+      "name": "humidity"
+    }
+  ],
+  "date": "Tue Jun 30 2015 15:08:34 GMT+0200 (CEST)",
+  "type": "list",
+  "title": "my internet of things"
+}
+```
+
+
+Result is shown below
+
+![QDDB.js and Univeral Widget in action](https://raw.github.com/mrizvic/js-qddb/universalwidget.png)
+
 
