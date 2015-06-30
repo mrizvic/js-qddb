@@ -97,7 +97,7 @@ server$ curl -L http://127.0.0.1:8002/key1
 
 Always stay up to date with your Raspberry PI CPU temperature (and make sure you check out the widget software below)
 ```
-pi@raspberrypi ~ $ curl http://qddb.dmz6.net/RPI2-CPUTEMP/$(vcgencmd measure_temp | cut -d '=' -f2 | cut -d "'" -f1) -XPUT
+pi@raspberrypi ~ $ curl http://127.0.0.1:8002/RPI2-CPUTEMP/$(vcgencmd measure_temp | cut -d '=' -f2 | cut -d "'" -f1) -XPUT
 OKpi@raspberrypi ~ $
 ```
 
