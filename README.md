@@ -8,21 +8,30 @@ SIGUSR2 signal handler is written to produce some statistics on console.log()
 ## Usage:
 
 Store value1 under key1
-```curl -L http://127.0.0.1:8002/key1/value1 -XPUT
-curl -L http://127.0.0.1:8002/key1/value1 -XPOST```
+```
+curl -L http://127.0.0.1:8002/key1/value1 -XPUT
+curl -L http://127.0.0.1:8002/key1/value1 -XPOST
+```
 
 Retrieve value of key1
-```curl -L http://127.0.0.1:8002/key1```
+```
+curl -L http://127.0.0.1:8002/key1
+```
 
 Delete key1
-```curl -L http://127.0.0.1:8002/key1 -XDELETE```
+```
+curl -L http://127.0.0.1:8002/key1 -XDELETE
+```
 
 Dump all keys with their attributes:
-```curl -L http://127.0.0.1:8002/cmd/list```
+```
+curl -L http://127.0.0.1:8002/cmd/list
+```
 
 ## In practice:
 
-```server$ env | grep PS1
+```
+server$ env | grep PS1
 PS1=\[\e[1;33m\]\w\n\[\e[1;32m\]\h\[\e[m\]$
 ~
 
@@ -32,12 +41,25 @@ server$ curl -L http://127.0.0.1:8002/key1/value1 -XPOST
 OK~
 server$ curl -L http://127.0.0.1:8002/key1
 value1~
-server$ curl -L http://127.0.0.1:8002/cmd/list
-[{"key":"key1","value":"value1","modified":"2015-06-30T07:47:02.088Z","created":"2015-06-30T07:46:59.982Z","accessed":"2015-06-30T07:47:04.695Z"}]~
+server$ curl -L http://127.0.0.1:8002/cmd/list | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   146  100   146    0     0  16833      0 --:--:-- --:--:-- --:--:-- 18250
+[
+  {
+    "accessed": "2015-06-30T12:44:29.169Z",
+    "created": "2015-06-30T12:44:29.169Z",
+    "modified": "2015-06-30T12:44:31.809Z",
+    "value": "value1",
+    "key": "key1"
+  }
+]
+~
 server$ curl -L http://127.0.0.1:8002/key1 -XDELETE
 OK~
 server$ curl -L http://127.0.0.1:8002/cmd/list
 []~
 server$ curl -L http://127.0.0.1:8002/key1
-{"error":"undefined"}~```
+{"error":"undefined"}~
+```
 
