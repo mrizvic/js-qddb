@@ -41,23 +41,23 @@ interrupt with CTRL+C
 
 Store value1 under key1
 ```
-curl -L http://127.0.0.1:8002/key1/value1 -XPUT
-curl -L http://127.0.0.1:8002/key1/value1 -XPOST
+curl http://127.0.0.1:8002/key1/value1 -XPUT
+curl http://127.0.0.1:8002/key1/value1 -XPOST
 ```
 
 Retrieve value of key1
 ```
-curl -L http://127.0.0.1:8002/key1
+curl http://127.0.0.1:8002/key1
 ```
 
 Delete key1
 ```
-curl -L http://127.0.0.1:8002/key1 -XDELETE
+curl http://127.0.0.1:8002/key1 -XDELETE
 ```
 
 Dump all keys with their attributes:
 ```
-curl -L http://127.0.0.1:8002/cmd/list
+curl http://127.0.0.1:8002/cmd/list
 ```
 
 ## In practice:
@@ -67,13 +67,13 @@ server$ env | grep PS1
 PS1=\[\e[1;33m\]\w\n\[\e[1;32m\]\h\[\e[m\]$
 ~
 
-server$ curl -L http://127.0.0.1:8002/key1/value1 -XPUT
+server$ curl http://127.0.0.1:8002/key1/value1 -XPUT
 OK~
-server$ curl -L http://127.0.0.1:8002/key1/value1 -XPOST
+server$ curl http://127.0.0.1:8002/key1/value1 -XPOST
 OK~
-server$ curl -L http://127.0.0.1:8002/key1
+server$ curl http://127.0.0.1:8002/key1
 value1~
-server$ curl -L http://127.0.0.1:8002/cmd/list | jq .
+server$ curl http://127.0.0.1:8002/cmd/list | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   146  100   146    0     0  16833      0 --:--:-- --:--:-- --:--:-- 18250
@@ -87,11 +87,11 @@ server$ curl -L http://127.0.0.1:8002/cmd/list | jq .
   }
 ]
 ~
-server$ curl -L http://127.0.0.1:8002/key1 -XDELETE
+server$ curl http://127.0.0.1:8002/key1 -XDELETE
 OK~
-server$ curl -L http://127.0.0.1:8002/cmd/list
+server$ curl http://127.0.0.1:8002/cmd/list
 []~
-server$ curl -L http://127.0.0.1:8002/key1
+server$ curl http://127.0.0.1:8002/key1
 {"error":"undefined"}~
 ```
 
@@ -106,7 +106,7 @@ OKpi@raspberrypi ~ $
 In order to display key/values on your favourite android gadget you can install [Universal Widget](https://play.google.com/store/apps/details?id=uk.cdev.universalwidget.v1) and use following URL to catch your stored values.
 
 ```
-$ curl -L http://127.0.0.1:8002/cmd/uw | jq .
+$ curl http://127.0.0.1:8002/cmd/uw | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   267  100   267    0     0  39218      0 --:--:-- --:--:-- --:--:-- 44500
