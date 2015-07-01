@@ -73,7 +73,7 @@ OK~
 server$ curl http://127.0.0.1:8002/key1/value1 -XPOST
 OK~
 server$ curl http://127.0.0.1:8002/key1
-{"key":"key1","value":""}~
+{"key":"key1","value":"value1"}~
 server$ curl http://127.0.0.1:8002/cmd/list | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
