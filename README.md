@@ -45,7 +45,7 @@ curl http://127.0.0.1:8002/key1/value1 -XPUT
 curl http://127.0.0.1:8002/key1/value1 -XPOST
 ```
 
-Retrieve value of key1
+Retrieve value of key1. Output is JSON formatted (see examples below).
 ```
 curl http://127.0.0.1:8002/key1
 ```
@@ -63,6 +63,7 @@ curl http://127.0.0.1:8002/cmd/list
 ## In practice:
 
 ```
+
 server$ env | grep PS1
 PS1=\[\e[1;33m\]\w\n\[\e[1;32m\]\h\[\e[m\]$
 ~
@@ -72,7 +73,7 @@ OK~
 server$ curl http://127.0.0.1:8002/key1/value1 -XPOST
 OK~
 server$ curl http://127.0.0.1:8002/key1
-value1~
+{"key":"key1","value":""}~
 server$ curl http://127.0.0.1:8002/cmd/list | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed

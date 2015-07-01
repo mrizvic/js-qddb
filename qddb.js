@@ -102,7 +102,10 @@ app.get('/:key', function(req,res) {
 		res.send(resp);
 	} else {
 		arrayKVObjects[key].accessed = new Date();
-		res.send(arrayKVObjects[key].value);
+		var resp = {};
+		resp['key']=key;
+		resp['value']=arrayKVObjects[key].value
+		res.send(resp);
 	}
 });
 
