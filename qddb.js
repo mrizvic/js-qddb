@@ -101,11 +101,12 @@ app.get('/:key', function(req,res) {
 		console.log(JSON.stringify(resp));
 		res.send(resp);
 	} else {
-		arrayKVObjects[key].accessed = new Date();
 		var resp = {};
 		resp['key']=key;
-		resp['value']=arrayKVObjects[key].value
+		resp['value']=arrayKVObjects[key].value;
+		resp['accessed']=arrayKVObjects[key].accessed;
 		res.send(resp);
+		arrayKVObjects[key].accessed = new Date();
 	}
 });
 
