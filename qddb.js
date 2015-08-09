@@ -12,6 +12,25 @@ var sizeof = require('object-sizeof');
 var express = require('express');
 var app = express();
 
+// Add headers
+app.use(function (req, res, next) {
+	// Website you wish to allow to connect
+	res.setHeader('Access-Control-Allow-Origin', 'http://io.dmz6.net');
+
+	// Request methods you wish to allow
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+	// Request headers you wish to allow
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+	// Set to true if you need the website to include cookies in the requests sent
+	// to the API (e.g. in case you use sessions)
+	res.setHeader('Access-Control-Allow-Credentials', true);
+
+	// Pass to next layer of middleware
+	next();
+});
+
 // counters
 var apiRequests=0;
 var counterGet=0;
@@ -76,9 +95,14 @@ app.get('/cmd/uw', function(req,res) {
 
 	var data = [];
 	for (var key in arrayKVObjects) {
-		var mytemp = {}
+		var mytemp = {};
+		var myvalue = arrayKVObjects[key].value;
+		// skip long lines
+		if (myvalue.length > 15) {
+			continue;
+		}
 		mytemp['name'] = key;
-		mytemp['value'] = arrayKVObjects[key].value;
+		mytemp['value'] = myvalue;
 		arrayKVObjects[key].accessed = new Date();
 		//mytemp['color'] = 'yellow';
 		data.push(mytemp);
