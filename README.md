@@ -239,6 +239,8 @@ $ curl -s http://127.0.0.1:8002/key2/1461406570/1461406580 | jq .
 
 ## Android Universal Widget
 
+### Note: Android Universal Widget is not supported in current version. Please find [historic version here](https://github.com/mrizvic/js-qddb/tree/43563bc96a4de36f69b1706202e7ca97895ee9c6) if you want widget support.
+
 In order to display key/values on your favourite android gadget you can install [Universal Widget](https://play.google.com/store/apps/details?id=uk.cdev.universalwidget.v1) and use following URL to catch your stored values.
 
 ```
