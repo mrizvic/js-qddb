@@ -39,6 +39,9 @@ interrupt with CTRL+C
 [2015-06-30 15:47:58.139] [LOG] process ends here
 ```
 
+
+## Storing and retrieving variables
+
 Store value1 under key1
 ```
 curl http://127.0.0.1:8002/key1/value1 -XPUT
@@ -60,6 +63,27 @@ Dump all keys with their attributes:
 curl http://127.0.0.1:8002/cmd/list
 ```
 
+Store many variables under key2 and make key2 FIFO buffered with limit of 20 elements
+```
+for value in $(seq 11 55); do
+	curl -XPOST http://127.0.0.1:8002/key2/$value/20
+done
+```
+
+Now retrieve last stored variable:
+```
+curl http://127.0.0.1/key2
+```
+or retrieve last 5 stored variables
+```
+curl http://127.0.0.1/key2/5
+```
+each stored variable has timestamp attribute of when the variable was stored. By specifying from (e.g. 1461405500) and to (e.g. 1461405620) epoch time one can retrieve variables stored at specific time:
+```
+curl http://127.0.0.1/key2/1461405500/1461405620
+```
+
+
 ## In practice:
 
 ```
@@ -74,10 +98,7 @@ server$ curl http://127.0.0.1:8002/key1/value1 -XPOST
 OK~
 server$ curl http://127.0.0.1:8002/key1
 {"key":"key1","value":"value1"}~
-server$ curl http://127.0.0.1:8002/cmd/list | jq .
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   146  100   146    0     0  16833      0 --:--:-- --:--:-- --:--:-- 18250
+server$ curl -s http://127.0.0.1:8002/cmd/list | jq .
 [
   {
     "accessed": "2015-06-30T12:44:29.169Z",
@@ -100,6 +121,120 @@ Always stay up to date with your Raspberry PI CPU temperature (and make sure you
 ```
 pi@raspberrypi ~ $ curl http://127.0.0.1:8002/RPI2-CPUTEMP/$(vcgencmd measure_temp | cut -d '=' -f2 | cut -d "'" -f1) -XPUT
 OKpi@raspberrypi ~ $
+```
+
+Now we fill key2 with FIFO buffered 8 elements:
+
+```
+$ for value in $(seq 11 22); do curl -XPOST http://qddb.dmz6.net/key2/$value/8 ; sleep 1 ; done                                                                                                              [3/13]
+OKOKOKOKOKOKOKOKOKOKOKOK$
+$ curl -s http://qddb.dmz6.net/key2 | jq .
+{
+  "key": "key2",
+  "first_timestamp": "2016-04-23T10:16:04.228Z",
+  "last_timestamp": "2016-04-23T10:16:29.498Z",
+  "first_value": "15",
+  "last_value": "22",
+  "value": "22",
+  "created": "2016-04-23T10:08:06.404Z",
+  "modified": "2016-04-23T10:16:29.498Z",
+  "total_values": 8
+}
+```
+
+Retrieve all elements:
+```
+$ curl -s http://qddb.dmz6.net/key2/0 | jq .
+{
+  "key": "key2",
+  "values": [
+    [
+      "2016-04-23T10:16:04.228Z",
+      "15"
+    ],
+    [
+      "2016-04-23T10:16:07.836Z",
+      "16"
+    ],
+    [
+      "2016-04-23T10:16:11.447Z",
+      "17"
+    ],
+    [
+      "2016-04-23T10:16:15.056Z",
+      "18"
+    ],
+    [
+      "2016-04-23T10:16:18.666Z",
+      "19"
+    ],
+    [
+      "2016-04-23T10:16:22.278Z",
+      "20"
+    ],
+    [
+      "2016-04-23T10:16:25.887Z",
+      "21"
+    ],
+    [
+      "2016-04-23T10:16:29.498Z",
+      "22"
+    ]
+  ],
+  "accessed": "2016-04-23T10:17:07.696Z",
+  "created": "2016-04-23T10:08:06.404Z",
+  "modified": "2016-04-23T10:16:29.498Z"
+}
+```
+
+Retrieve last 3 stored elements:
+```
+$ curl -s http://qddb.dmz6.net/key2/3 | jq .
+{
+  "key": "key2",
+  "values": [
+    [
+      "2016-04-23T10:16:22.278Z",
+      "20"
+    ],
+    [
+      "2016-04-23T10:16:25.887Z",
+      "21"
+    ],
+    [
+      "2016-04-23T10:16:29.498Z",
+      "22"
+    ]
+  ],
+  "accessed": "2016-04-23T10:17:32.558Z",
+  "created": "2016-04-23T10:08:06.404Z",
+  "modified": "2016-04-23T10:16:29.498Z"
+}
+```
+
+Retrieve elements stored between 1461406570 and 1461406580:
+```
+$ curl -s http://qddb.dmz6.net/key2/1461406570/1461406580 | jq .
+{
+  "key": "key2",
+  "values": [
+    [
+      "2016-04-23T10:16:11.447Z",
+      "17"
+    ],
+    [
+      "2016-04-23T10:16:15.056Z",
+      "18"
+    ],
+    [
+      "2016-04-23T10:16:18.666Z",
+      "19"
+    ]
+  ],
+  "accessed": "2016-04-23T10:23:06.698Z",
+  "created": "2016-04-23T10:08:06.404Z",
+  "modified": "2016-04-23T10:16:29.498Z"
+}
 ```
 
 ## Android Universal Widget
