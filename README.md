@@ -126,9 +126,9 @@ OKpi@raspberrypi ~ $
 Now we fill key2 with FIFO buffered 8 elements:
 
 ```
-$ for value in $(seq 11 22); do curl -XPOST http://qddb.dmz6.net/key2/$value/8 ; sleep 1 ; done                                                                                                              [3/13]
+$ for value in $(seq 11 22); do curl -XPOST http://127.0.0.1:8002/key2/$value/8 ; sleep 1 ; done                                                                                                              [3/13]
 OKOKOKOKOKOKOKOKOKOKOKOK$
-$ curl -s http://qddb.dmz6.net/key2 | jq .
+$ curl -s http://127.0.0.1:8002/key2 | jq .
 {
   "key": "key2",
   "first_timestamp": "2016-04-23T10:16:04.228Z",
@@ -144,7 +144,7 @@ $ curl -s http://qddb.dmz6.net/key2 | jq .
 
 Retrieve all elements:
 ```
-$ curl -s http://qddb.dmz6.net/key2/0 | jq .
+$ curl -s http://127.0.0.1:8002/key2/0 | jq .
 {
   "key": "key2",
   "values": [
@@ -189,7 +189,7 @@ $ curl -s http://qddb.dmz6.net/key2/0 | jq .
 
 Retrieve last 3 stored elements:
 ```
-$ curl -s http://qddb.dmz6.net/key2/3 | jq .
+$ curl -s http://127.0.0.1:8002/key2/3 | jq .
 {
   "key": "key2",
   "values": [
@@ -214,7 +214,7 @@ $ curl -s http://qddb.dmz6.net/key2/3 | jq .
 
 Retrieve elements stored between 1461406570 and 1461406580:
 ```
-$ curl -s http://qddb.dmz6.net/key2/1461406570/1461406580 | jq .
+$ curl -s http://127.0.0.1:8002/key2/1461406570/1461406580 | jq .
 {
   "key": "key2",
   "values": [
