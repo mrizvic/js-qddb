@@ -42,7 +42,6 @@ app.use(function (req, res, next) {
 var apiRequests=0;
 var counterGet=0;
 var counterPutPost=0;
-//var counterPost=0;
 var counterDelete=0;
 
 var dynamicKeys=0;
