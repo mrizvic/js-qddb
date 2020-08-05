@@ -6,7 +6,7 @@
   "dependencies": {
     "console-stamp": "~0.1.6",
     "express": "~4.13.0",
-    "express-fileupload": "~0.0.4",
+    "express-fileupload": ">=1.1.9",
     "object-sizeof": "~1.0.6"
   },
   "devDependencies": {},
